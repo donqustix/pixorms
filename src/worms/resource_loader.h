@@ -3,13 +3,15 @@
 
 namespace worms
 {
-    class Application;
-    class Config;
+    struct ConfigBlock;
 
-    namespace resource_loader
+    class Application;
+
+    struct ResourceLoader
     {
-        void load(Application& application, const Config& config);
-    }
+        virtual ~ResourceLoader() = default;
+        virtual void load(Application& application, const ConfigBlock& block) const = 0;
+    };
 }
 
 #endif

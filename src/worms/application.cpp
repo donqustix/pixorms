@@ -5,7 +5,7 @@
 #include "window.h"
 #include "config.h"
 #include "timer.h"
-#include "resource_loader.h"
+#include "resource_loader_list.h"
 #include "gui_state.h"
 
 #include <SDL2/SDL_image.h>
@@ -71,7 +71,7 @@ Application::Application() : sdl     {std::make_unique<SDL     >()},
                                                                     config.findValue<int>("virt_h", "graphics")));
     resourceContainer = std::make_unique<ResourceContainer>();
 
-    resource_loader::load(*this, Config::parseFile("res/configs/resources.cfg"));
+    ResourceLoaderList{}.load(*this, Config::parseFile("res/configs/resources.cfg"));
 
     guiGameStateMachine = std::make_unique<GuiGameStateMachine>(*this);
     spf = 1000 / config.findValue<unsigned>("max_fps");

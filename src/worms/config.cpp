@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <fstream>
 
+using worms::ConfigBlock;
 using worms::Config;
 
 Config Config::parseFile(const std::string& filepath)
@@ -13,22 +14,22 @@ Config Config::parseFile(const std::string& filepath)
     return Config{stream};
 }
 
-const Config::Block& Config::findBlock(const std::string& route) const
+const ConfigBlock& Config::findConfigBlock(const std::string& route) const
 {
-    if (route.empty()) return mainBlock;
+    if (route.empty()) return mainConfigBlock;
 
     std::istringstream sstream{route};
     std::string blockName;
 
     std::getline(sstream, blockName, ':');
 
-    auto iter = mainBlock.blocks.find(blockName);
+    auto iter = mainConfigBlock.blocks.find(blockName);
     for (; std::getline(sstream, blockName, ':'); iter = iter->second.blocks.find(blockName));
 
     return iter->second;
 }
 
-const std::string& Config::findRawValue(const Block& block, const std::string& key) const
+const std::string& Config::findRawValue(const ConfigBlock& block, const std::string& key) const
 {
     auto iter = block.variables.find(key);
     if (iter == block.variables.cend())

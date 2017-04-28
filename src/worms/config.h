@@ -1,6 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "config_block.h"
 #include "utility.h"
 
 #include <algorithm>
@@ -12,16 +13,10 @@ namespace worms
 {
     class Config
     {
-        struct Block
-        {
-            std::map<std::string, Block>       blocks;
-            std::map<std::string, std::string> variables;
-        };
-
-        Block mainBlock;
+        ConfigBlock mainConfigBlock;
 
         template<typename CharT>
-        void initialize(std::basic_istream<CharT>& stream, Block& block)
+        void initialize(std::basic_istream<CharT>& stream, ConfigBlock& block)
         {
             std::string line;
             while (std::getline(stream, line))
@@ -34,10 +29,10 @@ namespace worms
                         return;
                     case '!':
                     {
-                        auto newBlockName = line.substr(1, line.length() - 1);
-                        Block newBlock;
-                        initialize(stream, newBlock);
-                        block.blocks.emplace(std::move(newBlockName), std::move(newBlock));
+                        auto newConfigBlockName = line.substr(1, line.length() - 1);
+                        ConfigBlock newConfigBlock;
+                        initialize(stream, newConfigBlock);
+                        block.blocks.emplace(std::move(newConfigBlockName), std::move(newConfigBlock));
                         break;
                     }
                     default:
@@ -53,8 +48,8 @@ namespace worms
             }
         }
 
-        const Block& findBlock(const std::string& route) const;
-        const std::string& findRawValue(const Block& block, const std::string& key) const;
+        const ConfigBlock& findConfigBlock(const std::string& route) const;
+        const std::string& findRawValue(const ConfigBlock& block, const std::string& key) const;
 
     public:
         static Config parseFile(const std::string& filepath);
@@ -62,44 +57,44 @@ namespace worms
         template<typename CharT>
         explicit Config(std::basic_istream<CharT>& stream)
         {
-            initialize(stream, mainBlock);
+            initialize(stream, mainConfigBlock);
         }
 
         template<typename T>
         T findValue(const std::string& key, const std::string& route) const
         {
-            return utility::convert<T>(findRawValue(findBlock(route), key));
+            return utility::convert<T>(findRawValue(findConfigBlock(route), key));
         }
 
         template<typename T>
         T findValue(const std::string& key) const
         {
-            return utility::convert<T>(findRawValue(findBlock(""), key));
+            return utility::convert<T>(findRawValue(findConfigBlock(""), key));
         }
 
         template<typename T>
-        T findValue(const std::string& key, const Block& block) const
+        T findValue(const std::string& key, const ConfigBlock& block) const
         {
             return utility::convert<T>(findRawValue(block, key));
         }
 
-        const auto& getMainBlock() const noexcept {return mainBlock;}
+        const auto& getMainBlock() const noexcept {return mainConfigBlock;}
     };
 
     template<>
     inline std::string Config::findValue(const std::string& key, const std::string& route) const
     {
-        return findRawValue(findBlock(route), key);
+        return findRawValue(findConfigBlock(route), key);
     }
 
     template<>
     inline std::string Config::findValue(const std::string& key) const
     {
-        return findRawValue(findBlock(""), key);
+        return findRawValue(findConfigBlock(""), key);
     }
 
     template<>
-    inline std::string Config::findValue(const std::string& key, const Block& block) const
+    inline std::string Config::findValue(const std::string& key, const ConfigBlock& block) const
     {
         return findRawValue(block, key);
     }
