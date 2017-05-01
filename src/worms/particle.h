@@ -30,6 +30,8 @@ namespace worms
 
         Uint32              color;
 
+        int                 movementTime = 0;
+
         bool                killed = false;
 
     public:

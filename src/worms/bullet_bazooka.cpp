@@ -23,7 +23,7 @@ BulletBazooka::BulletBazooka(SDL_Rect           area,
                              float              y,
                              float              nx,
                              float              ny) noexcept :
-    Bullet{area, texture, x, y, nx, ny, 60.0F / 1000.0F, 0.5F / 1000.0F, 2, 40, 45}
+    Bullet{area, texture, x, y, nx, ny, 80.0F / 1000.0F, 30.0F / 1000.0F, 2, 40, 45}
 {
 }
 
@@ -40,6 +40,6 @@ std::unique_ptr<Particle> BulletBazooka::makeParticle()
     ny *= invLength;
 
     return std::make_unique<Particle>(
-                Particle{x, y, nx, ny, 30.0F / 1000.0F, 0.5F / 1000.0F, 0xFFAAAAAA});
+                Particle{x, y, nx, ny, 30.0F / 1000.0F, 10.0F / 1000.0F, 0xFFAAAAAA});
 }
 

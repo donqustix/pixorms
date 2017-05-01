@@ -38,6 +38,8 @@ namespace worms
         float               movementSpeed;
         float               fallSpeed;
 
+        int                 movementTime = 0;
+
         int                 size;
         int                 damage;
 

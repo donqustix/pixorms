@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <istream>
 #include <utility>
-#include <map>
 
 namespace worms
 {

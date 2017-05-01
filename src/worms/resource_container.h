@@ -26,7 +26,7 @@ namespace worms
         void insert(std::string name, Args&&... args)
         {
             if (resources.find(name) != resources.cend())
-                throw std::runtime_error{"there is already the resource " + name};
+                throw std::runtime_error{"there is already a resource with the name: " + name};
             resources.emplace(std::move(name), std::make_unique<T>(std::forward<Args>(args)...));
         }
 
@@ -35,7 +35,7 @@ namespace worms
         {
             const auto iter = resources.find(name);
             if (iter == resources.cend())
-                throw std::runtime_error{"there is no the " + name + " resource"};
+                throw std::runtime_error{"there is no a resource with the name: " + name};
             return dynamic_cast<T*>(iter->second.get());
         }
     };

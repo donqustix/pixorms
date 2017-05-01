@@ -80,7 +80,7 @@ void Game::update(unsigned delta)
                         const float ny = sy * invDistance;
 
                         w->takeDamage(b->getDamage() * b->getDamage() / distance);
-                        w->punch(nx, ny, 80.0F / 1000.0F);
+                        w->punch(nx, ny);
                     }
                 }
             }

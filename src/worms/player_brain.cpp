@@ -30,11 +30,6 @@ void PlayerBrain::update(GamePlayerAdapter& adapter, unsigned delta)
         rotationSide = keyStates[SDL_SCANCODE_S];
         adapter.rotateWormDirection(delta, rotationSide);
     }
-
-    if (keyStates[SDL_SCANCODE_P])
-    {
-        adapter.punch(0.7F, -0.7F, 80.0F / 1000.0F);
-    }
 }
 
 void PlayerBrain::handle(const SDL_Event& sdlEvent)

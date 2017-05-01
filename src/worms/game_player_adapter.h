@@ -23,7 +23,6 @@ namespace worms
         void useWeapon() const;
         void moveWorm(unsigned delta, bool side) const noexcept;
         void rotateWormDirection(unsigned delta, bool side) const noexcept;
-        void punch(float nx, float ny, float flySpeed) const noexcept;
 
         const Camera& getCamera() const noexcept;
         const Worm* getWorm() const noexcept;

@@ -17,7 +17,7 @@ Weapon& WeaponList::findWeapon(Types key)
 {
     const auto iter = weapons.find(key);
     if (iter == weapons.cend())
-        throw std::runtime_error{"there is no the weapon with the key" + std::to_string(key)};
+        throw std::runtime_error{"there is no a weapon with the key" + std::to_string(key)};
     return iter->second;
 }
 

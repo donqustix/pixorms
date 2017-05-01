@@ -36,10 +36,6 @@ Worm::~Worm() = default;
 
 Worm& Worm::operator=(Worm&&) noexcept = default;
 
-/*
- *  y = x * tan alpha0 - g * x ^ 2 / (2 * V0 ^ 2 * cos ^ 2 alpha0)
- */
-
 void Worm::update(unsigned delta)
 {
     if (health > MAX_HEALTH)
@@ -52,12 +48,13 @@ void Worm::update(unsigned delta)
 
     if (currentState == IN_AIR)
     {
-        fx = x + nx * flySpeed * delta;
-        fy = y + ny * flySpeed * delta;
+        flyTime += delta;
 
-        ny += 0.5F / 1000.0F * delta;
-        if (ny > 1.0F)
-            ny = 1.0F;
+        fx = x + nx * FLY_SPEED * flyTime * 1e-3F * delta;
+        fy = y + ny * FLY_SPEED * flyTime * 1e-3F * delta + FALL_SPEED * flyTime * flyTime * 1e-6F * delta;
+
+        rx = nx * FLY_SPEED * 1e-3F * delta;
+        ry = ny * FLY_SPEED * 1e-3F * delta + FALL_SPEED * 1e-6F * delta * (2.0F * flyTime + 1.0F);
 
         animations[currentState]->update(delta, ANIMATION_TIME);
     }
@@ -67,23 +64,27 @@ void Worm::update(unsigned delta)
 
 void Worm::render(Graphics& graphics, const Camera& camera)
 {
-    animations[currentState]->render(graphics, x - camera.x, y - camera.y, SIZE, nx < 0.0F,
-            currentState == States::IN_AIR ? std::atan2(ny, nx) * 180.0 / M_PI + 90.0 : 0.0);
-    if (weapon)
+    if (currentState == IN_AIR)
+        animations[currentState]->render(graphics, x - camera.x, y - camera.y, SIZE, SDL_FLIP_NONE,
+                std::atan2(ry, rx) * 180.0 / M_PI + 45.0);
+    else
     {
-        const int wx = x - camera.x + (SIZE - weapon->area.w) / 2;
-        const int wy = y - camera.y + (SIZE - weapon->area.h) / 2;
+        animations[currentState]->render(graphics, x - camera.x, y - camera.y, SIZE, nx < 0.0F);
+        if (weapon)
+        {
+            const int wx = x - camera.x + (SIZE - weapon->area.w) / 2;
+            const int wy = y - camera.y + (SIZE - weapon->area.h) / 2;
 
-        graphics.drawTexture(*weapon->texture, {wx, wy, weapon->area.w, weapon->area.h}, weapon->area,
-                std::atan2(ny, nx) * 180.0 / M_PI, nx < 0.0F ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
+            graphics.drawTexture(*weapon->texture, {wx, wy, weapon->area.w, weapon->area.h}, weapon->area,
+                    std::atan2(ny, nx) * 180.0 / M_PI, nx < 0.0F ? SDL_FLIP_VERTICAL : SDL_FLIP_NONE);
 
-        graphics.setColor(0xFF0000FF);
-        graphics.drawPoint(x - camera.x + SIZE / 2 + 50 * nx, y - camera.y + SIZE / 2 + 50 * ny);
+            graphics.setColor(0xFF0000FF);
+            graphics.drawPoint(x - camera.x + SIZE / 2 + 50 * nx, y - camera.y + SIZE / 2 + 50 * ny);
+        }
     }
 
     graphics.setColor(0xFF0000AA);
     graphics.drawLine(x - camera.x, y - camera.y - 3, x - camera.x + SIZE, y - camera.y - 3);
-
     if (health)
     {
         graphics.setColor(0xFF00FF00);
@@ -107,12 +108,13 @@ void Worm::useWeapon(gui_states::Game& game)
       --weapon->count;
 }
 
-void Worm::punch(float nx, float ny, float flySpeed) noexcept
+void Worm::punch(float nx, float ny) noexcept
 {
     this->nx            =       nx;
     this->ny            =       ny;
-    this->flySpeed      = flySpeed;
-
+    
+    flyTime             =        0;
+    
     currentState        =   IN_AIR;
 }
 

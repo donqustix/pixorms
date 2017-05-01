@@ -38,6 +38,8 @@ namespace worms
         static constexpr int        ANIMATION_TIME      =   1000 / 10;
 
         static constexpr float      MOVEMENT_SPEED      =   10.0F / 1000.0F;
+        static constexpr float      FLY_SPEED           =   120.0F / 1000.0F;
+
         static constexpr float      FALL_SPEED          =   60.0F / 1000.0F;
         static constexpr float      ROTATION_SPEED      =    2.5F / 1000.0F;
 
@@ -62,10 +64,13 @@ namespace worms
         float               nx          =   1.0F;
         float               ny          =   0.0F;
 
-        float               flySpeed;
+        float               rx;
+        float               ry;
 
         States              currentState = MOVEMENT;
         WormTeams           team;
+
+        int                 flyTime = 0;
 
         int                 health              =   MAX_HEALTH;
         
@@ -89,7 +94,7 @@ namespace worms
         void setWeapon(Weapon* weapon) noexcept {this->weapon = weapon;}
         void useWeapon(gui_states::Game& game);
 
-        void punch(float nx, float ny, float flySpeed) noexcept;
+        void punch(float nx, float ny) noexcept;
 
         void rotate(unsigned delta, bool side) noexcept;
 

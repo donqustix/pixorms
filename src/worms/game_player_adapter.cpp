@@ -37,12 +37,6 @@ void GamePlayerAdapter::rotateWormDirection(unsigned delta, bool side) const noe
     playerData.worms[playerData.currentWormIndex]->rotate(delta, side);
 }
 
-void GamePlayerAdapter::punch(float nx, float ny, float flySpeed) const noexcept
-{
-    Game::PlayerData& playerData = game->playersData[game->currentPlayerIndex];
-    playerData.worms[playerData.currentWormIndex]->punch(nx, ny, flySpeed);
-}
-
 const Camera& GamePlayerAdapter::getCamera() const noexcept
 {
     return game->camera;

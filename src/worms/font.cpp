@@ -8,7 +8,7 @@ Font Font::load(const std::string& filepath, int ptsize)
 {
     TTF_Font* const ttfFont = ::TTF_OpenFont(filepath.c_str(), ptsize);
     if (!ttfFont)
-        throw std::runtime_error{"there is no the font " + filepath};
+        throw std::runtime_error{"font loading error: " + filepath};
     return Font{ttfFont};
 }
 

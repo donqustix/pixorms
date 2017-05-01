@@ -35,17 +35,17 @@ Bullet::Bullet(SDL_Rect                 area,
 {
 }
 
+// x(t) = x0 + v0 * t + 0.5g * t^2
+
 void Bullet::update(unsigned delta)
 {
     x = fx;
     y = fy;
 
-    fx = x + nx * movementSpeed * delta;
-    fy = y + ny * movementSpeed * delta;
+    movementTime += delta;
 
-    ny += fallSpeed * delta;
-    if (ny > 1.0F)
-        ny = 1.0F;
+    fx = x + nx * movementSpeed * movementTime * 1e-3F * delta;
+    fy = y + ny * movementSpeed * movementTime * 1e-3F * delta + fallSpeed * movementTime * movementTime * 1e-6F * delta;
 
     accumParticleTime += delta;
 
