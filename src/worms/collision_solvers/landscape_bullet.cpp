@@ -44,7 +44,7 @@ void LandscapeBullet::solve(GameObject& gm1, GameObject& gm2) const
 
             if (landscape.getPixel(cy, cx) != 0xFF00FF)
             {
-                landscape.fillCircle(cx, cy, bullet.damage >> 1, landscape.getSurface().makePixel(0xFF00FF));
+                landscape.destroy(cx, cy, bullet.damage >> 1);
                 bullet.kill();
                 break;
             }
@@ -60,7 +60,7 @@ void LandscapeBullet::solve(GameObject& gm1, GameObject& gm2) const
 
         if (landscape.getPixel(cy, cx) != 0xFF00FF)
         {
-            landscape.fillCircle(cx, cy, bullet.damage >> 1, landscape.getSurface().makePixel(0xFF00FF));
+            landscape.destroy(cx, cy, bullet.damage >> 1);
             bullet.kill();
         }
     }

@@ -53,8 +53,8 @@ void Worm::update(unsigned delta)
         fx = x + nx * FLY_SPEED * flyTime * 1e-3F * delta;
         fy = y + ny * FLY_SPEED * flyTime * 1e-3F * delta + FALL_SPEED * flyTime * flyTime * 1e-6F * delta;
 
-        rx = nx * FLY_SPEED * 1e-3F * delta;
-        ry = ny * FLY_SPEED * 1e-3F * delta + FALL_SPEED * 1e-6F * delta * (2.0F * flyTime + 1.0F);
+        rx = 0.5F * nx * FLY_SPEED * 1e-3F * delta;
+        ry = 0.5F * ny * FLY_SPEED * 1e-3F * delta + 0.5F * FALL_SPEED * 1e-6F * delta * (2.0F * flyTime + 1.0F);
 
         animations[currentState]->update(delta, ANIMATION_TIME);
     }

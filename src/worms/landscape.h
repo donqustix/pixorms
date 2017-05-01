@@ -5,29 +5,31 @@
 
 #include <SDL2/SDL_render.h>
 
-#include <utility>
 #include <memory>
 
 namespace worms
 {
+    struct LandscapeGenerator;
+
     class VideoInfo;
     class Texture;
     class Surface;
 
     class Landscape : public GameObject
     {
+        friend class LandscapeGeneratorAdapter;
+
     public:
         static constexpr int WIDTH = 512;
 
     private:
         std::unique_ptr<Surface> surface;
         std::unique_ptr<Texture> texture;
+
         bool rebuild = true;
 
     public:
-        static Landscape create(const VideoInfo&            videoInfo,
-                                const Surface*              surface,
-                                int                         scale           =   1);
+        static Landscape create(const VideoInfo& videoInfo);
 
         explicit Landscape(std::unique_ptr<Surface> surface);
         
@@ -39,7 +41,9 @@ namespace worms
         void update(unsigned delta) override;
         void render(Graphics& graphics, const Camera& camera) override;
 
-        void fillCircle(int x0, int y0, int radius, Uint32 color) noexcept;
+        void applyGeneration(const LandscapeGenerator& generator);
+
+        void destroy(int x0, int y0, int radius) noexcept;
 
         Uint32 getPixel(int row, int col) const noexcept;
 

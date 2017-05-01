@@ -31,10 +31,9 @@ namespace worms
 
         Surface& operator=(Surface&& surface) noexcept;
 
-        void setColorKey(Uint32 key) noexcept
-        {
-            ::SDL_SetColorKey(handle, SDL_TRUE, key);
-        }
+        void setColorKey(Uint32 key) noexcept {::SDL_SetColorKey(handle, SDL_TRUE, key);}
+
+        void fillCircle(int x0, int y0, int radius, Uint32 color) noexcept;
 
         void setPixel(int row, int col, Uint32 pixel) noexcept
         {

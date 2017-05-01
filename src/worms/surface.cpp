@@ -54,3 +54,40 @@ Surface& Surface::operator=(Surface&& surface) noexcept
     return *this;
 }
 
+void Surface::fillCircle(int x0, int y0, int radius, Uint32 color) noexcept
+{
+    auto drawLine = [this, color](int x1, int x2, int y) {
+        if (y < 0 || y >= handle->h)
+            return;
+        for (int i = x1; i < x2; ++i)
+        {
+            if (i < 0 || i >= handle->w)
+                continue;
+            setPixel(y, i, color);
+        }
+    };
+
+    int x = radius;
+    int y = 0;
+    int err = 0;
+
+    while (x >= y)
+    {
+        drawLine(x0 - x, x0 + x, y0 + y);
+        drawLine(x0 - y, x0 + y, y0 + x);
+        drawLine(x0 - y, x0 + y, y0 - x);
+        drawLine(x0 - x, x0 + x, y0 - y);
+
+        if (err <= 0)
+        {
+            ++y;
+            err += 2 * y + 1;
+        }
+        if (err > 0)
+        {
+            --x;
+            err -= 2 * x + 1;
+        }
+    }
+}
+

@@ -6,7 +6,7 @@ using worms::PlayerBrain;
 
 PlayerBrain::PlayerBrain() noexcept : Player{PlayerTypes::BRAIN} {}
 
-void PlayerBrain::update(GamePlayerAdapter& adapter, unsigned delta)
+void PlayerBrain::update(const GamePlayerAdapter& adapter, unsigned delta)
 {
     if      (keyStates[SDL_SCANCODE_A])
         adapter.moveWorm(delta, 0);

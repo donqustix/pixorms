@@ -10,6 +10,7 @@
 
 namespace worms
 {
+    class GamePlayerAdapter;
     class Application;
     class Landscape;
     class Player;
@@ -19,7 +20,6 @@ namespace worms
     class BulletFactory;
     class Bullet;
     class CollisionSolverList;
-    class GamePlayerAdapter;
 
     namespace gui_states
     {
@@ -44,7 +44,6 @@ namespace worms
 
         std::unique_ptr<BulletFactory>                  bulletFactory;
 
-        std::unique_ptr<GamePlayerAdapter>              gamePlayerAdapter;
         std::unique_ptr<Landscape>                      landscape;
 
         std::unique_ptr<CollisionSolverList>            collisionSolverList;

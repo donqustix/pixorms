@@ -1,5 +1,7 @@
 #include "game.h"
 
+#include "worms/landscape_generators/sandy.h"
+
 #include "worms/landscape.h"
 #include "worms/player.h"
 #include "worms/worm.h"
@@ -33,11 +35,9 @@ Game::Game(Application& application)
     bulletFactory = std::make_unique<BulletFactory>(std::make_unique<TextureAtlas>(
                 TextureAtlas::load(Config::parseFile("res/textures/bullets.cfg"), *application.getResourceContainer().
                     find<Texture>("texture_bullets"))));
-    gamePlayerAdapter = std::make_unique<GamePlayerAdapter>(this);
 
-    landscape = std::make_unique<Landscape>(Landscape::create(
-            application.getWindow().requestVideoInfo(),
-            application.getResourceContainer().find<Surface>("surface_land_0"), 2));
+    landscape = std::make_unique<Landscape>(Landscape::create(application.getWindow().requestVideoInfo()));
+    landscape->applyGeneration(landscape_generators::Sandy{application.getResourceContainer()});
 
     collisionSolverList = std::make_unique<CollisionSolverList>();
 }
@@ -88,7 +88,7 @@ void Game::update(unsigned delta)
     }
 
     const PlayerData& playerData = playersData[currentPlayerIndex];
-    playerData.player->update(*gamePlayerAdapter, delta);
+    playerData.player->update(GamePlayerAdapter{this}, delta);
 
     collisionSolverList->solve(*landscape, *playerData.worms[playerData.currentWormIndex]);
     playerData.worms[playerData.currentWormIndex]->update(delta);

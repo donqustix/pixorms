@@ -17,7 +17,7 @@ namespace worms
         explicit Player(PlayerTypes type) noexcept : type{type} {}
         virtual ~Player() = default;
 
-        virtual void update(GamePlayerAdapter& adapter, unsigned delta) {}
+        virtual void update(const GamePlayerAdapter& adapter, unsigned delta) {}
         virtual void handle(const SDL_Event& sdlEvent) {}
 
         auto getType() const noexcept {return type;}

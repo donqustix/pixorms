@@ -15,7 +15,7 @@ namespace worms
     public:
         PlayerBrain() noexcept;
 
-        void update(GamePlayerAdapter& adapter, unsigned delta) override;
+        void update(const GamePlayerAdapter& adapter, unsigned delta) override;
         void handle(const SDL_Event& sdlEvent) override;
     };
 }
