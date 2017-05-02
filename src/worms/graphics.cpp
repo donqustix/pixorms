@@ -56,11 +56,11 @@ void Graphics::drawText(const FontBitmap& fontBitmap, const std::string& str, in
 {
     for (std::string::size_type i = 0; i < str.length(); ++i)
     {
-        const int sx = x + i * fontBitmap.symbolSize;
+        const int sx =      x  +               i  * fontBitmap.symbolSize;
         const int cx = (str[i] - FontBitmap::BEG) * fontBitmap.symbolSize;
-        drawTexture(fontBitmap.texture,
-            {sx, y, fontBitmap.symbolSize, fontBitmap.symbolSize},
-            {cx, 0, fontBitmap.symbolSize, fontBitmap.symbolSize});
+
+        drawTexture(fontBitmap.texture, {sx, y, fontBitmap.symbolSize, fontBitmap.symbolSize},
+                                        {cx, 0, fontBitmap.symbolSize, fontBitmap.symbolSize});
     }
 }
 

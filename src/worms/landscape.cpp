@@ -5,7 +5,6 @@
 #include "texture.h"
 #include "surface.h"
 #include "camera.h"
-#include "video_info.h"
 
 #include <utility>
 

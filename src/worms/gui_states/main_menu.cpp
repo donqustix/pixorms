@@ -3,11 +3,9 @@
 
 #include "worms/gui_button.h"
 #include "worms/gui_game_state_machine.h"
-#include "worms/graphics.h"
 #include "worms/application.h"
 #include "worms/state_types.h"
 #include "worms/button_factory.h"
-#include "worms/state_types.h"
 #include "worms/player_brain.h"
 #include "worms/worm.h"
 #include "worms/weapon_list.h"

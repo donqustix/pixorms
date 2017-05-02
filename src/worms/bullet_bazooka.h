@@ -10,7 +10,7 @@ namespace worms
     class BulletBazooka : public Bullet
     {
     protected:
-        std::unique_ptr<Particle> makeParticle() override;
+        std::unique_ptr<Particle> makeParticle() const override;
 
     public:
         static BulletBazooka create(const TextureAtlas&     textureAtlas,

@@ -50,7 +50,7 @@ namespace worms
         bool                particleReady = false;
 
     protected:
-        virtual std::unique_ptr<Particle> makeParticle() = 0;
+        virtual std::unique_ptr<Particle> makeParticle() const = 0;
 
     public:
         Bullet(SDL_Rect                 area,
@@ -69,6 +69,7 @@ namespace worms
         void render(Graphics& graphics, const Camera& camera) override;
 
         void kill() noexcept {killed = true;}
+
         bool isKilled() const noexcept override {return killed;}
 
         std::vector<std::unique_ptr<Particle>> pickUpParticles();

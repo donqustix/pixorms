@@ -41,13 +41,13 @@ namespace worms
         void update(unsigned delta) override;
         void render(Graphics& graphics, const Camera& camera) override;
 
+        bool isKilled() const noexcept override {return false;}
+
         void applyGeneration(const LandscapeGenerator& generator);
 
         void destroy(int x0, int y0, int radius) noexcept;
 
         Uint32 getPixel(int row, int col) const noexcept;
-
-        bool isKilled() const noexcept override {return false;}
 
         const auto& getSurface() const noexcept {return *surface;}
     };

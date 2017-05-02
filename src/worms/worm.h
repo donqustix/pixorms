@@ -37,7 +37,7 @@ namespace worms
 
         static constexpr int        ANIMATION_TIME      =   1000 / 10;
 
-        static constexpr float      MOVEMENT_SPEED      =   10.0F / 1000.0F;
+        static constexpr float      MOVEMENT_SPEED      =    10.0F / 1000.0F;
         static constexpr float      FLY_SPEED           =   120.0F / 1000.0F;
 
         static constexpr float      FALL_SPEED          =   60.0F / 1000.0F;

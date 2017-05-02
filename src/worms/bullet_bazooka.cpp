@@ -27,7 +27,7 @@ BulletBazooka::BulletBazooka(SDL_Rect           area,
 {
 }
 
-std::unique_ptr<Particle> BulletBazooka::makeParticle()
+std::unique_ptr<Particle> BulletBazooka::makeParticle() const
 {
     const float x = this->getX() + this->getSize() / 2;
     const float y = this->getY() + this->getSize() / 2;

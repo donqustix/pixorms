@@ -15,8 +15,6 @@ Particle::Particle(float              x,
 {
 }
 
-// x(t) = x0 + v0 * t + 0.5g * t^2
-
 void Particle::update(unsigned delta)
 {
     x = fx;

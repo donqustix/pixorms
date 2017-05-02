@@ -35,8 +35,6 @@ Bullet::Bullet(SDL_Rect                 area,
 {
 }
 
-// x(t) = x0 + v0 * t + 0.5g * t^2
-
 void Bullet::update(unsigned delta)
 {
     x = fx;
