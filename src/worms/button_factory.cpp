@@ -17,7 +17,7 @@ ButtonFactory::ButtonFactory(Application& application)
     textureAtlas =
         std::make_unique<TextureAtlas>(TextureAtlas::load(Config::parseFile("res/textures/buttons.cfg"),
             *application.getResourceContainer().find<Texture>("texture_buttons")));
-    fontBitmap = application.getResourceContainer().find<FontBitmap>("font_bitmap_fixedsys_8");
+    fontBitmap = application.getResourceContainer().find<FontBitmap>("font_bitmap_atomics_6");
     
     const Graphics::VirtualSize virtualSize = application.getGraphics().requestVirtualSize();
     const SDL_Rect areaReleased = textureAtlas->findArea("released");
