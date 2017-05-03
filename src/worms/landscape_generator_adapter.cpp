@@ -11,8 +11,13 @@ void LandscapeGeneratorAdapter::drawSurface(const Surface& surface, int x, int y
                      const_cast<SDL_Surface*>(landscape->surface->getHandle()), &dstrect);
 }
 
-void LandscapeGeneratorAdapter::destroy(int x0, int y0, int radius) const noexcept
+void LandscapeGeneratorAdapter::fillCircle(int x0, int y0, int radius, Uint32 color) const noexcept
 {
-    landscape->destroy(x0, y0, radius);
+    landscape->surface->fillCircle(x0, y0, radius, color);
+}
+
+void LandscapeGeneratorAdapter::setPixel(int row, int col, Uint32 pixel) const noexcept
+{
+    landscape->surface->setPixel(row, col, pixel);
 }
 

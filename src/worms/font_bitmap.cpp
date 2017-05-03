@@ -20,7 +20,7 @@ FontBitmap FontBitmap::generate(const Font& font, const VideoInfo& videoInfo, co
 
     const SDL_Rect boundingBox{0, 0, w, h};
     
-    ::SDL_FillRect(const_cast<SDL_Surface*>(surface.getHandle()), &boundingBox, surface.makePixel(0xFF00FF));
+    ::SDL_FillRect(const_cast<SDL_Surface*>(surface.getHandle()), &boundingBox, surface.makePixel(0xFFFF00FF));
     surface.setColorKey(surface.makePixel(0xFF00FF));
     
     for (Uint16 i = FontBitmap::BEG; i < FontBitmap::END; ++i)

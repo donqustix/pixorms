@@ -27,9 +27,34 @@ void Sandy::generate(const LandscapeGeneratorAdapter& adapter) const
         }
     }
 
-    adapter.destroy(100, 100, 100);
+    const Landscape& landscape = adapter.getLandscape();
+
+    const bool mustLock = SDL_MUSTLOCK(const_cast<SDL_Surface*>(landscape.getSurface().getHandle()));
+    if (mustLock)
+        ::SDL_LockSurface(const_cast<SDL_Surface*>(landscape.getSurface().getHandle()));
+
+    adapter.fillCircle(100, 100, 100, landscape.getSurface().makePixel(0xFFFF00FF));
 
     for (int i = 0; i < 8; ++i)
-        adapter.destroy(100 + (i + 1) * 50, 100 + i * 5 * i, 100);
+        adapter.fillCircle(100 + (i + 1) * 50, 100 + i * 5 * i, 100, landscape.getSurface().makePixel(0xFFFF00FF));
+
+    for (int i = 0; i < Landscape::WIDTH; ++i)
+    {
+        for (int j = 0; j < Landscape::WIDTH; ++j)
+        {
+            if (landscape.getPixel(i, j) == 0xFF00FF)
+            {
+                for (int k = 0; k < 5; ++k)
+                {
+                    if (i + k < Landscape::WIDTH && landscape.getPixel(i + k, j) != 0xFF00FF)
+                        adapter.setPixel(i + k, j,
+                                landscape.getSurface().makePixel(60 * (4 - k) << 8) + 10);
+                }
+            }
+        }
+    }
+
+    if (mustLock)
+        ::SDL_UnlockSurface(const_cast<SDL_Surface*>(landscape.getSurface().getHandle()));
 }
 
