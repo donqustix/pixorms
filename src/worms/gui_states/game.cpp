@@ -32,7 +32,7 @@ Game::Game(Application& application)
                 TextureAtlas::load(Config::parseFile("res/textures/bullets.cfg"), *application.getResourceContainer().
                     find<Texture>("texture_bullets"))));
 
-    landscape = std::make_unique<Landscape>(Landscape::create(application.getWindow().requestVideoInfo()));
+    landscape = std::make_unique<Landscape>(Landscape::create(application.getGraphics().getSdlRenderer()));
     landscape->applyGeneration(landscape_generators::Sandy{application.getResourceContainer()});
 
     collisionSolverList = std::make_unique<CollisionSolverList>();

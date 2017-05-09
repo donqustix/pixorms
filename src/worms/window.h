@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include "video_info.h"
+//#include "video_info.h"
 
 #include <SDL2/SDL_video.h>
 
@@ -35,7 +35,7 @@ namespace worms
 
         Window& operator=(Window&& window) noexcept;
 
-        VideoInfo requestVideoInfo() const noexcept;
+        //VideoInfo requestVideoInfo() const noexcept;
         Size requestSize() const noexcept;
 
         const auto* getHandle() const noexcept {return handle;}

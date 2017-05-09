@@ -24,8 +24,6 @@ void LandscapeWorm::solve(GameObject& gm1, GameObject& gm2) const
     const float sx = worm.fx - worm.x;
     const float sy = worm.fy - worm.y;
 
-    #define checkPixel(y, x) landscape.getPixel(y, x) != 0xFF00FF
-
     const float length = std::sqrt(sx * sx + sy * sy);
     if (length > 1.0F)
     {
@@ -41,16 +39,16 @@ void LandscapeWorm::solve(GameObject& gm1, GameObject& gm2) const
             const float tfx = worm.fx = worm.x + ix;
             const float tfy = worm.fy = worm.y + iy;
 
-            if      (checkPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2 - 1))
+            if      (landscape.getPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2 - 1))
                 worm.fx = worm.x + ++ix;
-            else if (checkPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2    ))
+            else if (landscape.getPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2    ))
                 worm.fx = worm.x + --ix;
             else
                 ix += dsx;
 
-            if      (checkPixel(worm.fy + Worm::SIZE - 1, worm.fx + Worm::SIZE / 2    ))
+            if      (landscape.getPixel(worm.fy + Worm::SIZE - 1, worm.fx + Worm::SIZE / 2    ))
                 worm.fy = worm.y + --iy;
-            else if (checkPixel(worm.fy                 , worm.fx + Worm::SIZE / 2    ))
+            else if (landscape.getPixel(worm.fy                 , worm.fx + Worm::SIZE / 2    ))
                 worm.fy = worm.y + ++iy;
             else
                 iy += dsy;
@@ -63,15 +61,13 @@ void LandscapeWorm::solve(GameObject& gm1, GameObject& gm2) const
         const float tfx = worm.fx;
         const float tfy = worm.fy;
 
-        for (; checkPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2 - 1); ++worm.fx);
-        for (; checkPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2    ); --worm.fx);
-        for (; checkPixel(worm.fy + Worm::SIZE - 1, worm.fx + Worm::SIZE / 2    ); --worm.fy);
-        for (; checkPixel(worm.fy                 , worm.fx + Worm::SIZE / 2    ); ++worm.fy);
+        for (; landscape.getPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2 - 1); ++worm.fx);
+        for (; landscape.getPixel(worm.fy + Worm::SIZE / 2, worm.fx + Worm::SIZE / 2    ); --worm.fx);
+        for (; landscape.getPixel(worm.fy + Worm::SIZE - 1, worm.fx + Worm::SIZE / 2    ); --worm.fy);
+        for (; landscape.getPixel(worm.fy                 , worm.fx + Worm::SIZE / 2    ); ++worm.fy);
 
         if (worm.fx != tfx || worm.fy != tfy) worm.currentState = Worm::MOVEMENT;
     }
-
-    #undef checkPixel
 
     if (mustLock)
         ::SDL_UnlockSurface(const_cast<SDL_Surface*>(landscape.getSurface().getHandle()));

@@ -6,7 +6,6 @@
 #include "worms/resource_container.h"
 #include "worms/application.h"
 #include "worms/utility.h"
-#include "worms/window.h"
 #include "worms/graphics.h"
 
 using worms::resource_loaders::FontBitmap;
@@ -20,7 +19,7 @@ void FontBitmap::load(Application& application, const ConfigBlock& block) const
         resourceContainer.insert<worms::FontBitmap>("font_bitmap_" + rv.first,
                 worms::FontBitmap::generate(Font::load(rv.second,
                         utility::convert<int>(rv.first.substr(rv.first.find('_') + 1))),
-                    application.getWindow().requestVideoInfo(), application.getGraphics().getSdlRenderer()));
+                    application.getGraphics().getSdlRenderer()));
     }
 }
 

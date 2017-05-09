@@ -7,8 +7,6 @@
 #include <memory>
 #include <array>
 
-//kamaabcd@ukr.net
-
 namespace worms
 {
     namespace collision_solvers

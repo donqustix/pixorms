@@ -65,7 +65,8 @@ Application::Application() : sdl     {std::make_unique<SDL     >()},
     const auto config = Config::parseFile("res/configs/application.cfg");
     window = std::make_unique<Window>(Window::create("Worms", config.findValue<int>("w", "window"),
                                                               config.findValue<int>("h", "window")));
-    ::SDL_SetWindowFullscreen(const_cast<SDL_Window*>(window->getHandle()), SDL_WINDOW_FULLSCREEN);
+    if (config.findValue<bool>("fullscreen", "window"))
+        ::SDL_SetWindowFullscreen(const_cast<SDL_Window*>(window->getHandle()), SDL_WINDOW_FULLSCREEN);
 
     graphics = std::make_unique<Graphics>(Graphics::create(*window, config.findValue<int>("virt_w", "graphics"),
                                                                     config.findValue<int>("virt_h", "graphics")));

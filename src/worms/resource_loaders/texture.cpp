@@ -15,8 +15,7 @@ void Texture::load(Application& application, const ConfigBlock& block) const
 
     for (const auto& rv : block.variables)
     {
-        auto surface = Surface::load(rv.second);
-        surface.setColorKey(surface.makePixel(0xFF00FF));
+        auto surface = Surface::convert(Surface::load(rv.second).getHandle(), SDL_PIXELFORMAT_RGBA32);
         resourceContainer.insert<worms::Texture>("texture_" + rv.first,
                 worms::Texture::convert(application.getGraphics().getSdlRenderer(), surface.getHandle()));
     }

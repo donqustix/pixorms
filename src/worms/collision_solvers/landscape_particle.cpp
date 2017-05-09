@@ -39,7 +39,7 @@ void LandscapeParticle::solve(GameObject& gm1, GameObject& gm2) const
             particle.fx = particle.x + ix;
             particle.fy = particle.y + iy;
 
-            if (landscape.getPixel(particle.fy, particle.fx) != 0xFF00FF)
+            if (landscape.getPixel(particle.fy, particle.fx))
                 particle.kill();
 
             ix += dsx;
@@ -48,7 +48,7 @@ void LandscapeParticle::solve(GameObject& gm1, GameObject& gm2) const
     }
     else
     {
-        if (landscape.getPixel(particle.fy, particle.fx) != 0xFF00FF)
+        if (landscape.getPixel(particle.fy, particle.fx))
             particle.kill();
     }
 

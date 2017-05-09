@@ -13,8 +13,7 @@ void Surface::load(Application& application, const ConfigBlock& block) const
 
     for (const auto& rv : block.variables)
     {
-        auto surface = worms::Surface::load(rv.second);
-        surface.setColorKey(surface.makePixel(0xFF00FF));
+        auto surface = worms::Surface::convert(worms::Surface::load(rv.second).getHandle(), SDL_PIXELFORMAT_RGBA32);
         resourceContainer.insert<worms::Surface>("surface_" + rv.first, std::move(surface));
     }
 }

@@ -8,7 +8,6 @@
 
 namespace worms
 {
-    class VideoInfo;
     class Font;
 
     struct FontBitmap : public Resource
@@ -21,7 +20,6 @@ namespace worms
         int         symbolSize;
 
         static FontBitmap generate(const Font&                  font,
-                                   const VideoInfo&             videoInfo,
                                    const SDL_Renderer*          sdlRenderer);
 
         FontBitmap(Texture texture, int symbolSize) noexcept;

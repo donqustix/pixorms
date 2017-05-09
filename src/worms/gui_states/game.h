@@ -47,7 +47,7 @@ namespace worms
         std::unique_ptr<Landscape>                      landscape;
 
         std::unique_ptr<CollisionSolverList>            collisionSolverList;
-        
+
         std::vector<std::unique_ptr<Bullet>>            bullets;
         std::vector<std::unique_ptr<Particle>>          particles;
         

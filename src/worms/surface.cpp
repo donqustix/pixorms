@@ -1,5 +1,4 @@
 #include "surface.h"
-#include "video_info.h"
 
 #include <SDL2/SDL_image.h>
 
@@ -15,14 +14,9 @@ Surface Surface::load(const std::string& filepath)
     return Surface{handle};
 }
 
-Surface Surface::create(const VideoInfo& videoInfo, int width, int height)
+Surface Surface::create(int w, int h, int depth, Uint32 format)
 {
-    SDL_Surface* const handle =
-        ::SDL_CreateRGBSurface(0, width, height, videoInfo.bitsPerPixel,
-                                                 videoInfo.rMask,
-                                                 videoInfo.gMask,
-                                                 videoInfo.bMask,
-                                                 videoInfo.aMask);
+    SDL_Surface* const handle = ::SDL_CreateRGBSurfaceWithFormat(0, w, h, depth, format);
     if (!handle)
         throw std::runtime_error{::SDL_GetError()};
     return Surface{handle};

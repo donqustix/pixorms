@@ -37,6 +37,7 @@ Window::Size Window::requestSize() const noexcept
     return {w, h};
 }
 
+/*
 worms::VideoInfo Window::requestVideoInfo() const noexcept
 {
     Uint32 format, r, g, b, a;
@@ -44,4 +45,4 @@ worms::VideoInfo Window::requestVideoInfo() const noexcept
     ::SDL_PixelFormatEnumToMasks(format = ::SDL_GetWindowPixelFormat(handle), &bpp, &r, &g, &b, &a);
     return {format, r, g, b, a, bpp};
 }
-
+*/

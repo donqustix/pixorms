@@ -42,7 +42,7 @@ void LandscapeBullet::solve(GameObject& gm1, GameObject& gm2) const
             const float cx = bullet.fx + bullet.size / 2;
             const float cy = bullet.fy + bullet.size / 2;
 
-            if (landscape.getPixel(cy, cx) != 0xFF00FF)
+            if (landscape.getPixel(cy, cx))
             {
                 landscape.destroy(cx, cy, bullet.damage >> 1);
                 bullet.kill();
@@ -58,7 +58,7 @@ void LandscapeBullet::solve(GameObject& gm1, GameObject& gm2) const
         const float cx = bullet.fx + bullet.size / 2;
         const float cy = bullet.fy + bullet.size / 2;
 
-        if (landscape.getPixel(cy, cx) != 0xFF00FF)
+        if (landscape.getPixel(cy, cx))
         {
             landscape.destroy(cx, cy, bullet.damage >> 1);
             bullet.kill();

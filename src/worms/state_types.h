@@ -7,7 +7,7 @@ namespace worms
     {
         enum Types
         {
-            MAIN_MENU, GAME
+            MAIN_MENU, GAME, GAME_PREPARATION
         };
     };
 }

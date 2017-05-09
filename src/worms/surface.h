@@ -9,16 +9,12 @@
 
 namespace worms
 {
-    class VideoInfo;
-
     class Surface : public Resource
     {
         SDL_Surface* handle;
 
     public:
-        static Surface create(const VideoInfo&      videoInfo,
-                              int                   w,
-                              int                   h);
+        static Surface create(int w, int h, int depth, Uint32 format);
 
         static Surface convert(const SDL_Surface*       sdlSurface,
                                Uint32                   format);
@@ -30,8 +26,6 @@ namespace worms
         ~Surface();
 
         Surface& operator=(Surface&& surface) noexcept;
-
-        void setColorKey(Uint32 key) noexcept {::SDL_SetColorKey(handle, SDL_TRUE, key);}
 
         void fillCircle(int x0, int y0, int radius, Uint32 color) noexcept;
 
@@ -113,12 +107,12 @@ namespace worms
 
         Uint32 getPixel16(int row, int col) const noexcept
         {
-            return *(static_cast<Uint16*>(handle->pixels) + row * handle->w + col);
+            return *(static_cast<Uint16*>(handle->pixels) + row * handle->w + col) & 0xFFFF;
         }
 
         Uint32 getPixel8(int row, int col) const noexcept
         {
-            return *(static_cast<Uint8*>(handle->pixels) + row * handle->w + col);
+            return *(static_cast<Uint8 *>(handle->pixels) + row * handle->w + col) & 0xFF;
         }
 
         const auto* getHandle() const noexcept {return handle;}

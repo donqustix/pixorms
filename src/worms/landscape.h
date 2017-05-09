@@ -11,7 +11,6 @@ namespace worms
 {
     struct LandscapeGenerator;
 
-    class VideoInfo;
     class Texture;
     class Surface;
 
@@ -26,12 +25,11 @@ namespace worms
         std::unique_ptr<Surface> surface;
         std::unique_ptr<Texture> texture;
 
-        bool rebuild = true;
-
     public:
-        static Landscape create(const VideoInfo& videoInfo);
+        static Landscape create(const SDL_Renderer* sdlRenderer);
 
-        explicit Landscape(std::unique_ptr<Surface> surface);
+        explicit Landscape(std::unique_ptr<Surface> surface,
+                           std::unique_ptr<Texture> texture);
         
         Landscape(Landscape&&) noexcept;
         ~Landscape();
