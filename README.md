@@ -8,10 +8,10 @@ The project needs such libraries: SDL 2.0.5 or higher, SDL\_image 2.0.0 or highe
 
 **Enter the following commands to build for Linux:**
 ```
-cd project\_root\_directory
+cd project_root_directory
 mkdir bin
 make
 ```
 
-After this, enter 'make run' in order to run the game.
+After this, enter `make run` in order to run the game.
 
