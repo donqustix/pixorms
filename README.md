@@ -2,7 +2,7 @@
 
 ![alt tag](https://github.com/jangolare/worms/blob/master/res/example.png)
 
-## Compiling
+## Compilation
 
 The project needs such libraries: SDL 2.0.5 or higher, SDL\_image 2.0.0 or higher, and SDL\_ttf 2.0.12 or higher.
 
